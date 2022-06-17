@@ -30,8 +30,13 @@ public class ProdutoDAO {
         }
     }
 
-    public void incluir(Produto produto) throws SQLException {
-        boolean validar = validacao(produto.getId());
+    public void incluir(Produto produto) {
+        boolean validar = false;
+        try {
+            validar = validacao(produto.getId());
+        } catch (SQLException e) {
+            System.out.println("Erro na validação");
+        }
         if(validar == false){
 
             String sqlValid = "SELECT * FROM produto";
@@ -45,6 +50,8 @@ public class ProdutoDAO {
                         incluir3Produtos();
                     }
                 }
+            } catch (SQLException e) {
+                System.out.println("erro na validação da inserção.");
             }
 
             String sql = "INSERT INTO produto (id, nome, descricao, desconto, preco, dataInicio) VALUES (?, ?, ?, ?, ?, ?)";
@@ -137,8 +144,13 @@ public class ProdutoDAO {
         }
     }
 
-    public void atualizar(Produto produto) throws SQLException {
-        boolean validar = validacao(produto.getId());
+    public void atualizar(Produto produto) {
+        boolean validar = false;
+        try {
+            validar = validacao(produto.getId());
+        } catch (SQLException e) {
+            System.out.println("Erro na validação do bd");
+        }
         if(validar == false){
             incluir(produto);
         }
@@ -156,12 +168,19 @@ public class ProdutoDAO {
             pstm.execute();
 
             System.out.println("Produto atualizado com sucesso.");
+        } catch (SQLException e) {
+            System.out.println("Erro no UPDATE");
         }
 
     }
 
-    public void excluir(int id) throws SQLException {
-        boolean validar = validacao(id);
+    public void excluir(int id) {
+        boolean validar = false;
+        try {
+            validar = validacao(id);
+        } catch (SQLException e) {
+            System.out.println("Erro na validação do bd");
+        }
         if(validar == false){
             System.out.println("Oferta nao existente! Não e possivel excluir um objeto que não existe.");
         }
@@ -176,10 +195,12 @@ public class ProdutoDAO {
 
             int linhasModificadas = pstm.getUpdateCount();
             System.out.println("O numero de linhas modificadas foi "+ linhasModificadas);
+        } catch (SQLException e) {
+            System.out.println("Erro no DELETE");
         }
     }
 
-    public List<Produto> listar(String nomeProduto) throws SQLException {
+    public List<Produto> listar(String nomeProduto) {
 
         List<Produto> produtos = new ArrayList<Produto>();
         String sql = "SELECT id, nome, descricao, desconto, preco, dataInicio FROM produto WHERE nome LIKE ?";
@@ -200,6 +221,8 @@ public class ProdutoDAO {
                     produtos.add(produto);
                 }
             }
+        } catch (SQLException e) {
+            System.out.println("Erro no SELECT");
         }
         return produtos;
     }

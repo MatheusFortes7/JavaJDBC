@@ -11,12 +11,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
         Scanner sc = new Scanner(System.in);
         int opcao;
         int id;
         Produto produto = new Produto();
-        Connection connection = new ConectionFactory().recuperarConexao();
+        Connection connection = null;
+        try {
+            connection = new ConectionFactory().recuperarConexao();
+        } catch (SQLException e) {
+            System.out.println("Erro de conexão");
+        }
         ProdutoDAO produtoDAO = new ProdutoDAO(connection);
 
         do {
@@ -80,7 +85,7 @@ public class Main {
                         }
                         sc.nextLine();
                     } while (id == 0);
-                    System.out.println("O id deletado será \n"+ id);
+                    System.out.println("O id deletado será "+ id);
 
                     produtoDAO.excluir(id);
 

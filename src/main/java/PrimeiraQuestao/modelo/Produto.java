@@ -82,11 +82,11 @@ public class Produto {
 
     @Override
     public String toString() {
-        return  "id= " + id +
-                "\nnome= " + nome +
-                "\ndescricao= " + descricao +
-                "\ndesconto= " + desconto +
-                "\npreco= " + preco +
-                "\ndataInicio= " + dataInicio;
+        return  "Id = " + id +
+                "\nNome = " + nome +
+                "\nDescrição = " + descricao +
+                "\nDesconto = " + desconto +
+                "\nPreço = " + preco +
+                "\nData de inicio da oferta = " + dataInicio;
     }
 }
