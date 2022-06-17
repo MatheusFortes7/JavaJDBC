@@ -9,13 +9,22 @@ public class Produto {
     String descricao;
     double desconto;
     double preco;
-    Date dataInicio;
+    String dataInicio;
 
     public Produto() {
 
     }
 
-    public Produto(String nome, String descricao, double desconto, double preco, Date dataInicio) {
+    public Produto(String nome, String descricao, double desconto, double preco, String dataInicio) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.desconto = desconto;
+        this.preco = preco;
+        this.dataInicio = dataInicio;
+    }
+
+    public Produto(int id, String nome, String descricao, double desconto, double preco, String dataInicio) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.desconto = desconto;
@@ -63,21 +72,21 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Date getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
     @Override
     public String toString() {
-        return  "id=" + id +
-                "nome='" + nome + '\'' +
-                "descricao='" + descricao + '\'' +
-                "desconto=" + desconto +
-                "preco=" + preco +
-                "dataInicio=" + dataInicio;
+        return  "id= " + id +
+                "\nnome= " + nome +
+                "\ndescricao= " + descricao +
+                "\ndesconto= " + desconto +
+                "\npreco= " + preco +
+                "\ndataInicio= " + dataInicio;
     }
 }
