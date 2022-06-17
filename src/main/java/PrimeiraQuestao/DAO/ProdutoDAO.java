@@ -33,6 +33,20 @@ public class ProdutoDAO {
     public void incluir(Produto produto) throws SQLException {
         boolean validar = validacao(produto.getId());
         if(validar == false){
+
+            String sqlValid = "SELECT * FROM produto";
+
+            try(PreparedStatement pstm = connection.prepareStatement(sqlValid)){
+
+                pstm.execute();
+
+                try(ResultSet rst = pstm.getResultSet()){
+                    if(!rst.next()){
+                        incluir3Produtos();
+                    }
+                }
+            }
+
             String sql = "INSERT INTO produto (id, nome, descricao, desconto, preco, dataInicio) VALUES (?, ?, ?, ?, ?, ?)";
 
             try(PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
@@ -60,6 +74,66 @@ public class ProdutoDAO {
             }
         } else {
             System.out.println("Id ja existente, nao foi possível a inserção da oferta!");
+        }
+    }
+
+    private void incluir3Produtos() {
+        String sql = "INSERT INTO produto (id, nome, descricao, desconto, preco, dataInicio) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+
+            pstm.setInt(1, 997);
+            pstm.setString(2, "Notebook");
+            pstm.setString(3, "Notebook gamer Asus");
+            pstm.setDouble(4, 500);
+            pstm.setDouble(5, 5500);
+            pstm.setString(6, "2022-05-18");
+
+            pstm.execute();
+
+
+            System.out.println("Oferta default 1 inserida com sucesso");
+
+
+        } catch (SQLException e) {
+            System.out.println("Erro na inclusao no banco de dados");
+        }
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+
+            pstm.setInt(1, 998);
+            pstm.setString(2, "Televisao");
+            pstm.setString(3, "Televisao Samsung 50 polegadas");
+            pstm.setDouble(4, 300);
+            pstm.setDouble(5, 7000);
+            pstm.setString(6, "2022-03-29");
+
+            pstm.execute();
+
+
+            System.out.println("Oferta default 2 inserida com sucesso");
+
+
+        } catch (SQLException e) {
+            System.out.println("Erro na inclusao no banco de dados");
+        }
+        try(PreparedStatement pstm = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+
+            pstm.setInt(1, 999);
+            pstm.setString(2, "Geladeira");
+            pstm.setString(3, "geladeira eletrolux");
+            pstm.setDouble(4, 150);
+            pstm.setDouble(5, 2000);
+            pstm.setString(6, "2020-01-09");
+
+            pstm.execute();
+
+
+            System.out.println("Oferta default 3 inserida com sucesso");
+
+
+        } catch (SQLException e) {
+            System.out.println("Erro na inclusao no banco de dados");
         }
     }
 

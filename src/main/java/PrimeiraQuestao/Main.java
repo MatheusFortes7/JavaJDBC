@@ -180,7 +180,7 @@ public class Main {
             }
             sc.nextLine();
         } while (mes == 0);
-        if(mes < 0 && mes < 12){
+        if(mes < 0 && mes > 12){
             System.out.println("Favor entrar com um numero de mes correto.");
             do {
                 try {
@@ -207,7 +207,7 @@ public class Main {
             }
             sc.nextLine();
         } while (dia == 0);
-        if(dia < 0 && dia < 31){
+        if(dia < 0 && dia > 31){
             System.out.println("Favor entrar com um numero de dia correto.");
             do {
                 try {
